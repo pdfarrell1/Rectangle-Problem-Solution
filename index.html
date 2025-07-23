@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rectangle Problem Solution</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .problem-statement {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+            text-align: center;
+            box-shadow: 0 8px 16px rgba(255, 107, 107, 0.3);
+        }
+        
+        .step {
+            margin: 30px 0;
+            padding: 25px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .step:hover {
+            transform: translateY(-2px);
+        }
+        
+        .step h3 {
+            color: #667eea;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+        
+        .visual-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .rectangle-visual {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border: 3px solid #2980b9;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .rectangle-visual:hover {
+            transform: scale(1.05);
+        }
+        
+        .dimension-label {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            font-size: 0.9em;
+        }
+        
+        .width-label {
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+        }
+        
+        .length-label {
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%) rotate(90deg);
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+        }
+        
+        .formula-box {
+            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2d3436;
+            box-shadow: 0 8px 16px rgba(253, 203, 110, 0.3);
+        }
+        
+        .calculation {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            box-shadow: 0 8px 16px rgba(116, 185, 255, 0.3);
+        }
+        
+        .final-answer {
+            background: linear-gradient(135deg, #00b894, #55a3ff);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 30px;
+            box-shadow: 0 15px 30px rgba(0, 184, 148, 0.4);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        
+        .equation {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .grid-pattern {
+            opacity: 0.1;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(45deg, #667eea 25%, transparent 25%), 
+                linear-gradient(-45deg, #667eea 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #667eea 75%), 
+                linear-gradient(-45deg, transparent 75%, #667eea 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-pattern"></div>
+    <div class="container">
+        <h1>🔍 Rectangle Problem Solution</h1>
+        
+        <div class="problem-statement">
+            <strong>Problem:</strong> A rectangle has a length that is 3 times its width. If the perimeter is 48 units, what is the area?
+        </div>
+        
+        <div class="step">
+            <h3>Step 1: Define Variables</h3>
+            <p>Let's call the width of the rectangle <span class="highlight">w</span></p>
+            <p>Since the length is 3 times the width, the length = <span class="highlight">3w</span></p>
+            
+            <div class="visual-container">
+                <div class="rectangle-visual" style="width: 60px; height: 180px;">
+                    <div class="dimension-label width-label">w</div>
+                    <div class="dimension-label length-label">3w</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="step">
+            <h3>Step 2: Set Up the Perimeter Equation</h3>
+            <p>The perimeter of a rectangle is: <strong>P = 2(length + width)</strong></p>
+            
+            <div class="formula-box">
+                Perimeter = 2(3w + w) = 48
+            </div>
+            
+            <div class="calculation">
+                <div class="equation">2(3w + w) = 48</div>
+                <div class="equation">2(4w) = 48</div>
+                <div class="equation">8w = 48</div>
+                <div class="equation">w = 48 ÷ 8 = 6</div>
+            </div>
+        </div>
+        
+        <div class="step">
+            <h3>Step 3: Find the Dimensions</h3>
+            <p>Now that we know w = 6:</p>
+            <ul>
+                <li><strong>Width:</strong> w = <span class="highlight">6 units</span></li>
+                <li><strong>Length:</strong> 3w = 3 × 6 = <span class="highlight">18 units</span></li>
+            </ul>
+            
+            <div class="visual-container">
+                <div class="rectangle-visual" style="width: 90px; height: 270px;">
+                    <div class="dimension-label width-label">6 units</div>
+                    <div class="dimension-label length-label">18 units</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="step">
+            <h3>Step 4: Verify the Perimeter</h3>
+            <div class="calculation">
+                <div class="equation">Perimeter = 2(length + width)</div>
+                <div class="equation">Perimeter = 2(18 + 6)</div>
+                <div class="equation">Perimeter = 2(24) = 48 ✓</div>
+            </div>
+        </div>
+        
+        <div class="step">
+            <h3>Step 5: Calculate the Area</h3>
+            <p>The area of a rectangle is: <strong>Area = length × width</strong></p>
+            
+            <div class="calculation">
+                <div class="equation">Area = length × width</div>
+                <div class="equation">Area = 18 × 6</div>
+                <div class="equation">Area = 108 square units</div>
+            </div>
+        </div>
+        
+        <div class="final-answer">
+            🎉 The area of the rectangle is <strong>108 square units</strong> 🎉
+        </div>
+    </div>
+</body>
+</html>
